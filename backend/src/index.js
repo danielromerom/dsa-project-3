@@ -1,52 +1,45 @@
-import Pokedex from 'pokedex-promise-v2';
-const P = new Pokedex();
+import { loadCSVData } from './dataExtractor.js';
+import { threeLowestStats } from './threeLowestStats.js';
+import { singleLowestStat } from './singleLowestStat.js';
+import { lowestPokemonFromStat } from './lowestPokemonFromStat.js';
+import { betterPokemonTypeStat } from './betterPokemonTypeStat.js'; 
+import { canEvolve } from './canEvolve.js'; 
+import { typeWeaknesses } from './typeWeaknesses.js';
 
-// (async () => { // with Async/Await
-//   try {
-//       const golduckSpecies = await P.getPokemonSpeciesByName("golduck")
-//       const frenchName = golduckSpecies.names.filter(pokeAPIName => pokeAPIName.language.name === 'fr')[0].name
-//       console.log(frenchName)
-//   } catch (error) {
-//       throw error
-//   }
-// })
+async function main() {
+  try {
+    // loading csv files
+    const pokemons = await loadCSVData('./csv/pokemons.csv');
+    const stats = await loadCSVData('./csv/stats.csv');
+    const types = await loadCSVData('./csv/types.csv');
+    const typeEffectives = await loadCSVData('./csv/type_effectives.csv');
+    const moves = await loadCSVData('./csv/moves.csv');
+    const pokemonMoves = await loadCSVData('./csv/pokemon_moves.csv');
 
-// P.getPokemonByName(['eevee', 'ditto']) // with Promise
-// .then((response) => {
-//   console.log(response);
-// })
-// .catch((error) => {
-//   console.log('There was an ERROR: ', error);
-// });
+    // make a team with the first 6 pokemon
+    const team = pokemons.slice(0, 3);
 
-// P.getPokemonByName(34, (response, error) => { // with callback
-//   if(!error) {
-//     console.log(response);
-//   } else {
-//     console.log(error)
-//   }
-// });
+    const threeLowest = threeLowestStats(pokemons, stats); 
+    console.log('Three Lowest Stats:', threeLowest);
 
-P.getResource(['/api/v2/pokemon/36', '/api/v2/pokemon/999'])
-.then((response) => {
-  console.log(response[0].name);
-  console.log(response);
-  console.log ("Spacer 1");
-  console.log(response[0]);
-  console.log("Spacer 2");
-  console.log(response[1].name);
-  console.log(response[1]);
-  console.log("Spacer 3");
-  console.log(response[0].stats); 
-  console.log(response[0].stats[1]);
-  
-  // the getResource function accepts singles or arrays of URLs/paths
-});
+    const singleLowest = singleLowestStat(pokemons, stats); 
+    console.log('Single Lowest Stat:', singleLowest);
 
-// P.getStatByName("attack")
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch((error) => {
-//       console.log('There was an ERROR: ', error);
-//     });
+    const lowestPokemon = lowestPokemonFromStat(pokemons, stats, 'attack'); 
+    console.log('Lowest Pokemon by Attack Stat:', lowestPokemon); 
+
+    const betterPokemon = betterPokemonTypeStat(lowestPokemon, 'attack', pokemons, stats);
+    console.log('Better Pokémon for Attack:', betterPokemon);
+
+    const highestEvolution = canEvolve(team[0], pokemons); 
+    console.log('Highest Evolution:', highestEvolution); 
+
+    const weaknesses = typeWeaknesses(team, typeEffectives, types); 
+    console.log('Team Weaknesses:', weaknesses);
+
+  } catch (error) { 
+    console.error('Error:', error);
+  }
+}
+
+main();
