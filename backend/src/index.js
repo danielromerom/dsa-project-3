@@ -37,7 +37,10 @@ P.getResource(['/api/v2/pokemon/36', '/api/v2/pokemon/999'])
   console.log(response[1].name);
   console.log(response[1]);
   console.log("Spacer 3");
-  console.log(response[0].stats); // the getResource function accepts singles or arrays of URLs/paths
+  console.log(response[0].stats); 
+  console.log(response[0].stats[1]);
+  
+  // the getResource function accepts singles or arrays of URLs/paths
 });
 
 // P.getStatByName("attack")
