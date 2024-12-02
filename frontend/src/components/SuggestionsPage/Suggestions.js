@@ -101,6 +101,13 @@ const Suggestions = () => {
     return string.charAt(0).toUpperCase() + string.slice(1); 
   };
 
+  const formatStatName = (statName) => {
+    return statName
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };  
+
   const getTypeName = (typeId) => {
     const type = types.find(t => t.id === typeId);
     return type ? type.type_name : '';
@@ -277,6 +284,23 @@ const Suggestions = () => {
       <div className={styles.weaknessesContainer}>
         <h1 className={styles.weaknessesTitle}>Weaknesses</h1> 
         <div className={styles.weaknessesBox}> 
+          <div className={styles.lowestStatsRow}>
+            {statWeaknesses && statWeaknesses.length >= 3 ? (
+              <>
+                <div className={styles.statBox}>
+                  {formatStatName(statWeaknesses[0].stat)}
+                </div>
+                <div className={styles.statBox}>
+                  {formatStatName(statWeaknesses[1].stat)}
+                </div>
+                <div className={styles.statBox}>
+                  {formatStatName(statWeaknesses[2].stat)}
+                </div>
+              </>
+            ) : (
+              <div>Loading...</div>
+            )}
+          </div>
           {typeWeaknesses.map((type, index) => ( 
             index % 3 === 0 ? 
               <div key={index} className={styles.typeWeaknessRow}> 

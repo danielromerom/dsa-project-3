@@ -135,6 +135,30 @@
   height: auto; 
 }
 
+.lowestStatsRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 1vh;
+  gap: 0vw;
+}
+
+.statBox {
+  flex: 1 1 30%;
+  background-color: var(--dark-gray);
+  border-radius: 1vh;
+  font-size: 2.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  background-color: VAR(--darkest-gray); 
+  padding: 1.5vh;
+  margin: 0vh 1vw;
+  text-align: center;
+}
+
 .movesContainer {
   cursor:default;
   position: absolute;

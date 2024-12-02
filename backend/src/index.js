@@ -32,9 +32,9 @@ loadData().catch(error => {
 app.get('/api/pokemons', (req, res) => {
   res.json(data.pokemons);
   // const bulba = canEvolve(data.pokemons[0], data.pokemons);
-  const bulba2 = teamEvolve([data.pokemons[0]], data.pokemons)
+  // const bulba2 = teamEvolve([data.pokemons[0]], data.pokemons)
   // console.log(bulba);
-  console.log(bulba2);
+  // console.log(bulba2);
 
 });
 
