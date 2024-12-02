@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown.js';
-import './InputTeam.css';
+import styles from './InputTeam.module.css';
 
 function InputTeamPage() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -72,22 +72,22 @@ function InputTeamPage() {
   return (
     <div>
       <h1>Input Your Team</h1>
-      <div className="pokemon-selection-container">
-        <div className="pokemon-rows"> 
+      <div className={styles.pokemonSelectionContainer}>
+        <div className={styles.pokemonRows}> 
           {selectedPokemon.slice(0, 3).map((pokemon, index) => ( 
             <div 
               key={index} 
-              className={`pokemon-circle ${showDropdown === index ? 'show-dropdown' : ''}`} 
+              className={`${styles.pokemonCircle1} ${showDropdown === index ? styles.showDropdown : ''}`} 
               onClick={() => toggleDropdown(index)} 
             > 
               <img 
                 src={pokemon ? pokemon.front_sprite : ''} 
                 alt={pokemon ? pokemon.name : ''} 
-                className="pokemon-image" 
+                className={styles.pokemonImage}
               /> 
               {showDropdown === index && ( 
                 <div 
-                  className="dropdown-container" 
+                  className={styles.dropdownContainer}
                   onClick={e => e.stopPropagation()} // Prevent event propagation 
                 > 
                   <Dropdown 
@@ -100,21 +100,21 @@ function InputTeamPage() {
             </div> 
           ))} 
         </div>
-        <div className="pokemon-rows"> 
+        <div className={styles.pokemonRows}> 
           {selectedPokemon.slice(3, 6).map((pokemon, index) => ( 
             <div 
               key={index + 3} 
-              className={`pokemon-circle-2 ${showDropdown === index + 3 ? 'show-dropdown' : ''}`} 
+              className={`${styles.pokemonCircle2} ${showDropdown === index + 3 ? styles.showDropdown : ''}`} 
               onClick={() => toggleDropdown(index + 3)} 
             > 
               <img 
                 src={pokemon ? pokemon.front_sprite : ''} 
                 alt={pokemon ? pokemon.name : ''} 
-                className="pokemon-image" 
+                className={styles.pokemonImage} 
               /> 
               {showDropdown === index + 3 && ( 
                 <div 
-                  className="dropdown-container" 
+                  className={styles.dropdownContainer} 
                   onClick={e => e.stopPropagation()} // Prevent event propagation 
                 > 
                   <Dropdown 
@@ -127,7 +127,7 @@ function InputTeamPage() {
             </div> 
           ))} 
         </div>
-        <div className="submit-button-container"> 
+        <div className={styles.submitButtonContainer}> 
           <button onClick={handleSubmit}>Submit</button> 
         </div>
       </div>

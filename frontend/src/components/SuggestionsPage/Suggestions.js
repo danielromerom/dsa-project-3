@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import './Suggestions.css';
+import styles from './Suggestions.module.css';
 
 const Suggestions = () => {
   const location = useLocation();
@@ -10,46 +10,52 @@ const Suggestions = () => {
   return (
     <div>
       <h1>Suggestions</h1>
-      <div className="pokemon-container">
-        <div className="pokemon-rows first-row">
+      <div className= {styles.pokemonContainer}>
+        <div className= {styles.pokemonRows}>
           {selectedPokemon.slice(0, 3).map((pokemon, index) => (
             <div
               key={index}
-              className="pokemon-circle"
+              className={styles.pokemonCircle}
             >
               <img
                 src={pokemon ? pokemon.front_sprite : ''}
                 alt={pokemon ? pokemon.name : ''}
-                className="pokemon-image"
+                className={styles.pokemonImage}
               />
             </div>
           ))}
         </div>
-        <div className="pokemon-rows second-row">
+        <div className={styles.pokemonRows}>
           {selectedPokemon.slice(3, 6).map((pokemon, index) => (
             <div
               key={index + 3}
-              className="pokemon-circle"
+              className={styles.pokemonCircle2}
             >
               <img
                 src={pokemon ? pokemon.front_sprite : ''}
                 alt={pokemon ? pokemon.name : ''}
-                className="pokemon-image"
+                className={styles.pokemonImage}
               />
             </div>
           ))}
         </div>
       </div>
-      <ul>
-        {selectedPokemon.map((pokemon, index) => (
-          pokemon && (
-            <li key={index}>
-              <img src={pokemon.front_sprite} alt={pokemon.name} />
-              <span>{pokemon.name}</span>
-            </li>
-          )
-        ))}
-      </ul>
+
+      <div className= {styles.weaknessesContainer}>
+        
+      </div>
+      
+      <div className= {styles.movesContainer}>
+        
+      </div>
+      
+      <div className= {styles.pokeSuggContainer}>
+        
+      </div>
+
+      <div className={styles.menuButtonContainer}> 
+          <button>Back to Menu</button> 
+      </div>
     </div>
   );
 };
