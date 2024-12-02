@@ -2,7 +2,7 @@
 @import '../../styles/colors.css';
 
 body {
-  background-image: url('../../../public/images/background_image.png');
+  background-image: '/images/background_image.png';
 }
 
 .pokemonSelectionContainer {
@@ -31,13 +31,11 @@ body {
   border-radius: 50%;
   overflow: visible;
   background: transparent;
-  cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .pokemonCircle1:nth-child(even) { 
   border: 1.25vh solid var(--dark-purple); 
@@ -55,7 +53,6 @@ body {
   border-radius: 50%;
   overflow: visible;
   background: transparent;
-  cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
@@ -82,10 +79,6 @@ body {
   visibility: hidden;
 }
 
-.showDropdown .dropdownOverlay {
-  display: block;
-}
-
 h1 { 
   font-size: 4.75vh; 
   font-family: "Irish Grover", system-ui; 
@@ -107,4 +100,20 @@ button {
   border-radius: 50px;
   background-color: var(--dark-red);
   color: white;
+}
+
+.latencyButton {
+  position: absolute;
+  font-size: 4vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  background-color: var(--dark-gray);
+  color: black;
+  width: 20vw;
+  height: 6vh;
+  right: 4vw;
+  top: 8vh;
+  border-radius: 3vh;
+  text-align: center; display: flex; justify-content: center; align-items: center;
 }

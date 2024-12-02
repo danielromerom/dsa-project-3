@@ -4,7 +4,7 @@
 .pokemonContainer {
   position: absolute;
   top: 8vh;
-  left: 10vh;
+  left: 3vw;
   width: 50vw; 
   height: 50vh; 
   display: flex;
@@ -14,46 +14,132 @@
 }
 
 .weaknessesContainer {
+  cursor:default;
   position: absolute;
-  top: 8vh;
-  left: 100vh;
-  width: 50vw; 
-  height: 50vh; 
+  top: 18vh;
+  right: 7vw;
+  width: 42.5vw; 
+  height: 30vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+}
+
+.weaknessesTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8vh;
+  background-color: VAR(--dark-purple);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 25%;
+  border-radius: 1.5vh;
+}
+
+.weaknessesBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:9vh;
+  background-color: VAR(--light-gray);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75%;
+  border-radius: 3vh;
 }
 
 .movesContainer {
+  cursor:default;
   position: absolute;
-  top: 8vh;
-  left: 10vh;
-  width: 50vw; 
-  height: 50vh; 
+  bottom: 18vh;
+  left: 7vw;
+  width: 42.5vw; 
+  height: 30vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.movesTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8vh;
+  background-color: VAR(--dark-purple);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 25%;
+  border-radius: 1.5vh;
+}
+
+.movesBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:9vh;
+  background-color: VAR(--light-gray);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75%;
+  border-radius: 3vh;
 }
 
 .pokeSuggContainer {
   position: absolute;
-  top: 8vh;
-  left: 10vh;
-  width: 50vw; 
-  height: 50vh; 
+  bottom: 18vh;
+  right: 7vw;
+  width: 42.5vw; 
+  height: 30vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor:default;
+}
+
+.pokeSuggTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8vh;
+  background-color: VAR(--dark-red);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 25%;
+  border-radius: 1.5vh;
+}
+
+.pokeSuggBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:9vh;
+  background-color: VAR(--light-gray);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75%;
+  border-radius: 3vh;
 }
 
 .pokemonRows {
   display: flex;
   justify-content: center;
-  gap: 8vh; 
+  gap: 2vw; 
   width: 100%;
 }
 
@@ -72,12 +158,12 @@
 }
 
 .pokemonCircle:nth-child(odd) { 
-  border: 8px solid var(--dark-red); 
+  border: 1.25vh solid var(--dark-red); 
   background-color: var(--light-red);
 }
 
 .pokemonCircle:nth-child(even) { 
-  border: 8px solid var(--dark-purple); 
+  border: 1.25vh solid var(--dark-purple); 
   background-color: var(--light-purple);
 }
 
@@ -95,12 +181,12 @@
 }
 
 .pokemonCircle2:nth-child(odd) { 
-  border: 8px solid var(--dark-purple); 
+  border: 1.25vh solid var(--dark-purple); 
   background-color: var(--light-purple);
 }
 
 .pokemonCircle2:nth-child(even) { 
-  border: 8px solid var(--dark-red); 
+  border: 1.25vh solid var(--dark-red); 
   background-color: var(--light-red);
 }
 
@@ -114,6 +200,387 @@
   visibility: hidden;
 }
 
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(180, 175, 175, .8);
+  z-index: 1000;
+}
+
+.popupContent {
+  background-color: var(--white);
+  margin: 10vh;
+  position: absolute;
+  width: 80vw;
+  height: 80vh;
+  overflow-y: auto;
+  border-radius: 0.5%;
+  cursor:default;
+
+  z-index: 1001;
+}
+
+.popupContent .pokemonCircle {
+  left: 2%;
+  top: 4%;
+  border: 1.25vh solid var(--dark-red); 
+  background-color: var(--light-red);
+  cursor: default;
+}
+
+.shinyButton{
+  left: 6.5vw;
+  top: -4vh;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50vh;
+  overflow: visible;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.75vh solid var(--darkest-gray); 
+  background-color: var(--dark-gray);
+}
+
+.shinyImage {
+  position: relative;
+  top: 12.5%;
+  width: 5vh;
+  height: 5vh;
+  object-fit: cover;
+  z-index: 100;
+}
+
+.typeBox1 {
+  cursor:default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  font-size: 3.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+
+  height: 8%;
+  width: 9%;
+
+  right: 10.75vw;
+  top: 6.5vh;
+
+  border-radius: 1.5vh;
+}
+
+.typeBox2 {
+  cursor:default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: absolute;
+  font-size: 3.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+
+  height: 8%;
+  width: 9%;
+
+  right: 2.5vw;
+  top: 6.5vh;
+  
+  border-radius: 1.5vh;
+}
+
+.statsBox {
+  position: absolute;
+  top: 22vh;
+  left: 4vw;
+  width: 12vw; 
+  height: 42.5vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  cursor:default;
+}
+
+.abilityTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: -5vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--dark-red);
+  color: white;
+}
+
+.abilityName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 4.2vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  cursor: pointer;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--light-gray);
+  color: black;
+}
+
+.hiddenAbilityTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 8.8vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--dark-purple);
+  color: white;
+}
+
+.hiddenAbilityName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 18vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  cursor: pointer;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--light-gray);
+  color: black;
+}
+
+.abilityPopupBG {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(180, 175, 175, .5);
+  z-index: 1000;
+}
+
+.abilityPopup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10vh;
+  position: absolute;
+  width: 40vw;
+  height: 70vh;
+  overflow-y: auto;
+  border-radius: 0.5%;
+  cursor:default;
+  z-index: 1001;
+}
+
+.abilityPopup .abilityTitle {
+  top: 1vh;
+}
+
+.abilityPopup .abilityDescription {
+  padding: 2vh;
+  position: absolute;
+  background-color: white;
+  max-height: 50vh;
+  overflow: auto;
+  top: 12vh;
+  border-radius: 1vh;
+  font-size: 3vh;
+}
+
+.generationTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 22.5vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--dark-red);
+  color: white;
+}
+
+.generationName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 29vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--light-gray);
+  color: black;
+}
+
+.weightTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 36vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--dark-purple);
+  color: white;
+}
+
+.weightName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  height: 6vh;
+  width: 100%;
+  top: 42.5vh;
+
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 2.75vh;
+  border: none;
+  border-radius: 1.5vh;
+  background-color: var(--light-gray);
+  color: black;
+}
+
+.learnContainer {
+  cursor:default;
+  position: absolute;
+  top: 10vh;
+  left: 20vw;
+  width: 55vw; 
+  height: 65vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.learnTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0vh;
+  background-color: VAR(--dark-purple);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border-radius: 1.5vh;
+}
+
+.learnBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:16vh;
+  background-color: VAR(--light-gray);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75%;
+  border-radius: 3vh;
+}
+
+.idBox {
+  position: absolute;
+  top: 6.5vh;
+  left: 11vw;
+  width: 6vw; 
+  height: 6vh;
+  
+  border-radius: 1vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: VAR(--dark-gray);
+  font-size: 3.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  cursor:default;
+}
+
 h1 { 
   font-size: 4.75vh; 
   font-family: "Irish Grover", system-ui; 
@@ -122,8 +589,33 @@ h1 {
   margin-top: 8vh;  
 }
 
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 4.75vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+
+  position: absolute;
+  background-color: VAR(--dark-purple);
+  color: white;
+  text-align: center;
+  top: 2%;
+  left: 25%;
+  width: 50%;
+  height: 10%;
+  border-radius: 1.5vh;
+}
+
 .menuButtonContainer {
   margin-top: 75vh;
+}
+
+.menuButton {
+  background-color: var(--dark-purple);
 }
 
 button {

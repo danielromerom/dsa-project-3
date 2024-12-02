@@ -1,19 +1,19 @@
 select {
-  width: 175px; /* Ensure the dropdown takes up the full width of the parent */
+  width: 10vw; /* Ensure the dropdown takes up the full width of the parent */
   max-width: 100%; /* Prevent max width restrictions */
   height: 50vh; /* Allow the height to adjust based on the content */
   overflow: auto;
   background-color: white;
-  font-size: 16px;
-  padding: 10px;
+  font-size: 1vw;
+  padding: 0.5vw;
   position: absolute;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  top: -50px;
+  top: -8vh;
 }
 
 option {
-  padding: 8px;
+  padding: 1vh;
 }

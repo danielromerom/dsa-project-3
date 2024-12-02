@@ -32,6 +32,11 @@ app.get('/api/pokemons', (req, res) => {
   res.json(data.pokemons);
 });
 
+app.get('/api/types', (req, res) => {
+  res.json(data.types);
+});
+
+
 app.post('/api/three-lowest-stats', express.json(), (req, res) => {
   const { selectedPokemon } = req.body;
   const result = threeLowestStats(selectedPokemon, data.stats);

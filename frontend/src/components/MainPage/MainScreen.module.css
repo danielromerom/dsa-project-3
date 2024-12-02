@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+@import '../../styles/colors.css';
+
+.logoImage {
+  position: absolute;
+  background-image: url('../../../public/images/pokeball_logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: 37.5vw;
+  top: 16vh;
+  width: 55vw;
+  height: 55vh;
+}
+
+.inputButton {
+  position: absolute;
+  bottom: 18vh;
+  left: 20vw;
+  width: 60vw;
+}
+
+.heapButton {
+  background-color: var(--dark-red);
+  position: absolute;
+  bottom: 8vh;
+  left: 20vw;
+  width: 29vw;
+}
+
+.mapButton {
+  background-color: var(--dark-red);
+  position: absolute;
+  bottom: 8vh;
+  right: 20vw;
+  width: 29vw;
+}
