@@ -3,7 +3,11 @@ import './Dropdown.css';
 
 const Dropdown = ({ options, selectedOption, onChange }) => {
   return (
-    <select value={selectedOption || ''} onChange={e => onChange(Number(e.target.value))}>
+    <select
+      value={selectedOption || ''}
+      onChange={e => onChange(Number(e.target.value))}
+      size={options.length}
+    >
       <option value="" disabled>Select Pokémon</option>
       {options.map(option => (
         <option key={option.id} value={option.id}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown.js';
 import './InputTeam.css';
 
@@ -7,6 +8,7 @@ function InputTeamPage() {
   const [pokemonList, setPokemonList] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(Array(6).fill(null));
   const [showDropdown, setShowDropdown] = useState(-1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/pokemons') 
@@ -32,6 +34,15 @@ function InputTeamPage() {
   const toggleDropdown = (index) => { 
     console.log('Toggling dropdown for index:', index); 
     setShowDropdown(prevIndex => (prevIndex === index ? -1 : index)); // Toggle or close 
+  };
+
+  const handleSubmit = () => {
+    const isPokemonSelected = selectedPokemon.some(pokemon => pokemon !== null);
+    if (isPokemonSelected) {
+      navigate('/suggestions', { state: { selectedPokemon } });
+    } else {
+      alert('Please select at least one Pokemon!');
+    }
   };
 
   // axios.post('http://localhost:3000/api/three-lowest-stats', { selectedPokemon: updatedSelectedPokemon }) 
@@ -61,36 +72,67 @@ function InputTeamPage() {
   return (
     <div>
       <h1>Input Your Team</h1>
-      <div className="pokemon-selection">
-        {selectedPokemon.map((pokemon, index) => (
-          <div 
-            key={index} 
-            className={`pokemon-circle ${showDropdown === index ? 'show-dropdown' : ''}`}
-            onClick={() => toggleDropdown(index)}
-          >
-            <img 
-              src={pokemon ? pokemon.front_sprite : ''}
-              alt={pokemon ? pokemon.name : ''}
-              className="pokemon-image"
-            />
-            {showDropdown === index && ( 
-              <div
-              className="dropdown-container" 
-              onClick={e => e.stopPropagation()} // Prevent event
-              >
-                <Dropdown 
-                  options={pokemonList} 
-                  selectedOption={pokemon ? pokemon.id : ''} 
-                  onChange={selectedId => handlePokemonChange(index, selectedId)} 
-                /> 
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="pokemon-selection-container">
+        <div className="pokemon-rows"> 
+          {selectedPokemon.slice(0, 3).map((pokemon, index) => ( 
+            <div 
+              key={index} 
+              className={`pokemon-circle ${showDropdown === index ? 'show-dropdown' : ''}`} 
+              onClick={() => toggleDropdown(index)} 
+            > 
+              <img 
+                src={pokemon ? pokemon.front_sprite : ''} 
+                alt={pokemon ? pokemon.name : ''} 
+                className="pokemon-image" 
+              /> 
+              {showDropdown === index && ( 
+                <div 
+                  className="dropdown-container" 
+                  onClick={e => e.stopPropagation()} // Prevent event propagation 
+                > 
+                  <Dropdown 
+                    options={pokemonList} 
+                    selectedOption={pokemon ? pokemon.id : ''} 
+                    onChange={selectedId => handlePokemonChange(index, selectedId)} 
+                  /> 
+                </div> 
+              )} 
+            </div> 
+          ))} 
+        </div>
+        <div className="pokemon-rows"> 
+          {selectedPokemon.slice(3, 6).map((pokemon, index) => ( 
+            <div 
+              key={index + 3} 
+              className={`pokemon-circle-2 ${showDropdown === index + 3 ? 'show-dropdown' : ''}`} 
+              onClick={() => toggleDropdown(index + 3)} 
+            > 
+              <img 
+                src={pokemon ? pokemon.front_sprite : ''} 
+                alt={pokemon ? pokemon.name : ''} 
+                className="pokemon-image" 
+              /> 
+              {showDropdown === index + 3 && ( 
+                <div 
+                  className="dropdown-container" 
+                  onClick={e => e.stopPropagation()} // Prevent event propagation 
+                > 
+                  <Dropdown 
+                    options={pokemonList} 
+                    selectedOption={pokemon ? pokemon.id : ''} 
+                    onChange={selectedId => handlePokemonChange(index + 3, selectedId)} 
+                  /> 
+                </div> 
+              )} 
+            </div> 
+          ))} 
+        </div>
+        <div className="submit-button-container"> 
+          <button onClick={handleSubmit}>Submit</button> 
+        </div>
       </div>
-      <button>Submit</button>
     </div>
-  )
+  );
 }
-
+      
 export default InputTeamPage;

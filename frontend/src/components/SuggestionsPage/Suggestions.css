@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+@import '../../styles/colors.css';
+
+body {
+  background-image: url('../../../images/background_image.png');
+}
+
+.pokemon-selection-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%; 
+  height: 55vh;
+  margin-top: 16vh; 
+  margin-left: auto;
+  margin-right: auto;
+  gap: 8vh; 
+}
+
+.pokemon-rows {
+  display: flex;
+  justify-content: center;
+  gap: calc(100px / 2); 
+  width: 100%;
+}
+
+.pokemon-circle {
+  width: 25vh;
+  height: 25vh;
+  border-radius: 50%;
+  overflow: visible;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemon-circle:nth-child(odd) { 
+  border: 8px solid var(--dark-red); 
+  background-color: var(--light-red);
+}
+
+.pokemon-circle:nth-child(even) { 
+  border: 8px solid var(--dark-purple); 
+  background-color: var(--light-purple);
+}
+
+.pokemon-circle-2 {
+  width: 25vh;
+  height: 25vh;
+  border-radius: 50%;
+  overflow: visible;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemon-circle-2:nth-child(odd) { 
+  border: 8px solid var(--dark-purple); 
+  background-color: var(--light-purple);
+}
+
+.pokemon-circle-2:nth-child(even) { 
+  border: 8px solid var(--dark-red); 
+  background-color: var(--light-red);
+}
+
+.pokemon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pokemon-image[src=""] {
+  visibility: hidden;
+}
+
+.show-dropdown .dropdown-overlay {
+  display: block;
+}
+
+h1 { 
+  font-size: 4.75vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  margin-top: 8vh;  
+}
+
+.submit-button-container {
+  margin-top: px;
+}
+
+button {
+  height: 8vh;
+  width: 50vw;
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  font-size: 4vh;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--dark-red);
+  color: white;
+}
