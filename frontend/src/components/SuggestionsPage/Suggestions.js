@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Suggestions.module.css';
+import config from '../../config/config.js';
 
 const Suggestions = () => {
   const location = useLocation();
@@ -10,16 +11,73 @@ const Suggestions = () => {
   const [popupPokemon, setPopupPokemon] = useState(null);
   const [isShiny, setIsShiny] = useState(false);
   const [types, setTypes] = useState([]);
+  const [typeEffectives, setTypeEffectives] = useState([]);
+  const [moves, setMoves] = useState([]);
+  const [stats, setStats] = useState([]);
+  const [pokemonMoves, setPokemonMoves] = useState([]);
+  const [typeWeaknesses, setTypeWeaknesses] = useState([]);
+  const [evolvablePokemon, setEvolvablePokemon] = useState([]);
   const [isAbilityPopupVisible, setIsAbilityPopupVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [statWeaknesses, setStatWeaknesses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/types')
+    axios.get(`${config.apiBaseUrl}/api/types`)
       .then(response => {
         setTypes(response.data);
       })
         .catch(error => console.error('Error fetching types:', error));
+
+    axios.get(`${config.apiBaseUrl}/api/effectiveness`)
+      .then(response => {
+        setTypeEffectives(response.data);
+      })
+        .catch(error => console.error('Error fetching types:', error));
+        
+    axios.get(`${config.apiBaseUrl}/api/moves`)
+      .then(response => {
+        setMoves(response.data);
+      })
+        .catch(error => console.error('Error fetching types:', error));
+
+    axios.get(`${config.apiBaseUrl}/api/pokemon-moves`)
+      .then(response => {
+        setPokemonMoves(response.data);
+      })
+        .catch(error => console.error('Error fetching types:', error));
+    
+        axios.get(`${config.apiBaseUrl}/api/stats`)
+      .then(response => {
+        setStats(response.data);
+      })
+        .catch(error => console.error('Error fetching types:', error));
+
+  }, []);
+
+  useEffect(() => {
+    axios.post(`${config.apiBaseUrl}/api/type-weaknesses`, { team: selectedPokemon })
+      .then(response => {
+        setTypeWeaknesses(response.data);
+      })
+      .catch(error => console.error('Error fetching type weaknesses:', error));
+
+    const validPokemons = selectedPokemon.filter(pokemon => pokemon !== null);
+    
+    axios.post(`${config.apiBaseUrl}/api/team-evolve`, { team: validPokemons }) 
+    .then(response => {
+      console.log(validPokemons); 
+      setEvolvablePokemon(response.data);
+      console.log(response.data);
+  }) 
+    .catch(error => console.error('Error fetching evolvable Pokemon:', error)); 
+
+    axios.post(`${config.apiBaseUrl}/api/three-lowest-stats`, { selectedPokemon: validPokemons }) 
+      .then(response => { 
+        setStatWeaknesses(response.data);
+        console.log(response.data);
+    }) 
+      .catch(error => console.error('Error fetching stat weaknesses:', error)); 
   }, []);
 
   const handlePokemonClick = (pokemon) => {
@@ -216,10 +274,43 @@ const Suggestions = () => {
         </div>
       )}
 
-      <div className= {styles.weaknessesContainer}>
-        <h1 className={styles.weaknessesTitle}>Weaknesses</h1>
-        <div className= {styles.weaknessesBox}>
-
+      <div className={styles.weaknessesContainer}>
+        <h1 className={styles.weaknessesTitle}>Weaknesses</h1> 
+        <div className={styles.weaknessesBox}> 
+          {typeWeaknesses.map((type, index) => ( 
+            index % 3 === 0 ? 
+              <div key={index} className={styles.typeWeaknessRow}> 
+                {typeWeaknesses.slice(index, index + 3).map((typeSlice, sliceIndex) => ( 
+                  <div 
+                    key={sliceIndex} 
+                    className={styles.typeBox} 
+                    style={{ backgroundColor: `VAR(--${typeSlice})` }}
+                  > 
+                    {capitalizeFirstLetter(typeSlice)} 
+                  </div> 
+                ))} 
+              </div> 
+            : null 
+          ))}
+          <div className={styles.canEvolveRow}> 
+            <div className={styles.evolveBox}>Can Evolve</div> 
+            <div className={styles.evolutionCircles}> 
+              {evolvablePokemon.map((pokemon, index) => 
+                pokemon ? ( 
+                  <div 
+                    key={index} 
+                    className={styles.evolutionCircle}
+                  > 
+                    <img 
+                      src={pokemon.front_sprite} 
+                      alt={pokemon.name} 
+                      className={styles.evolutionImage} 
+                    /> 
+                  </div> 
+                ) : null 
+              )} 
+            </div> 
+          </div>
         </div>
       </div>
       

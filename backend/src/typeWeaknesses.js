@@ -1,5 +1,7 @@
 export function typeWeaknesses(pokemons, typeEffectives, types) {
   // Create a map from type IDs to type names
+  const validPokemons = pokemons.filter(pokemon => pokemon !== null);
+  
   const typeMap = {};
   types.forEach(type => {
     typeMap[parseInt(type.id)] = type.type_name.toLowerCase();
@@ -30,7 +32,7 @@ export function typeWeaknesses(pokemons, typeEffectives, types) {
   }
 
   // Calculate weaknesses for each Pokémon in the team
-  const teamWeaknesses = pokemons.map(pokemon => {
+  const teamWeaknesses = validPokemons.map(pokemon => {
     return calculateWeaknesses(pokemon.type1_id, pokemon.type2_id);
   });
 

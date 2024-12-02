@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown.js';
 import styles from './InputTeam.module.css';
+import config from '../../config/config';
 
 function InputTeamPage() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -11,7 +12,7 @@ function InputTeamPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/pokemons') 
+    axios.get(`${config.apiBaseUrl}/api/pokemons`) 
     .then(response => {
       setPokemonList(response.data);
       console.log('Fetched Pokémon List:', response.data);
@@ -45,7 +46,7 @@ function InputTeamPage() {
     }
   };
 
-  // axios.post('http://localhost:3000/api/three-lowest-stats', { selectedPokemon: updatedSelectedPokemon }) 
+  //  
   //   .then(response => console.log('Three Lowest Stats:', response.data)) 
   //   .catch(error => console.error('Error fetching stats:', error)); 
   

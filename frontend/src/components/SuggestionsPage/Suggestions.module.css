@@ -42,16 +42,97 @@
 
 .weaknessesBox {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  position: absolute;
-  top:9vh;
+  position: relative;
+  top:5.5vh;
   background-color: VAR(--light-gray);
   color: white;
   text-align: center;
   width: 100%;
   height: 75%;
   border-radius: 3vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 1vh;
+}
+
+.typeWeaknessRow {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0px;
+  margin-left: 8vh;
+  margin-right: 8vh;
+}
+
+.typeBox {
+  flex: 1;
+  margin: 1vh 1vw;
+  padding: 1.5vh 2vh;
+  border-radius: 1vh;
+  font-size: 2.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+.canEvolveRow { 
+  display: flex; 
+  justify-content: space-between; 
+  width: 100%; 
+  margin: 0vh 0vh 2vh 0vh; 
+} 
+
+.evolveBox { 
+  flex: 1; 
+  text-align: center; 
+  margin: 1vh 1vw;
+  padding: 1.5vh 3vh;
+  border-radius: 1vh;
+  font-size: 2.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  background-color: VAR(--darkest-gray); 
+} 
+
+.evolutionCircles { 
+  flex: 3; 
+  display: flex; 
+  justify-content: flex-start; 
+  align-items: center; 
+  border-radius: 5vh;
+  gap: 1vh;
+} 
+
+.evolutionCircle { 
+  margin: 0vh .2vw;
+  width: 7vh; 
+  height: 7vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+   
+  border-radius: 10vh; 
+  overflow: hidden; 
+} 
+
+.evolutionCircle:nth-child(odd) { 
+  border: .5vh solid var(--dark-red); 
+  background-color: var(--light-red);
+}
+
+.evolutionCircle:nth-child(even) { 
+  border: .5vh solid var(--dark-purple); 
+  background-color: var(--light-purple);
+}
+
+.evolutionImage { 
+  width: 100%;
+  height: auto; 
 }
 
 .movesContainer {
@@ -85,8 +166,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top:9vh;
+  position: relative;
+  top:5.5vh;
   background-color: VAR(--light-gray);
   color: white;
   text-align: center;
@@ -126,8 +207,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top:9vh;
+  position: relative;
+  top:5.5vh;
   background-color: VAR(--light-gray);
   color: white;
   text-align: center;

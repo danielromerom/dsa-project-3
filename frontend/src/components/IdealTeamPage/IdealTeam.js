@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './IdealTeam.module.css';
+import config from '../../config/config';
 
 function InputTeamPage() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -10,7 +11,7 @@ function InputTeamPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/pokemons') 
+    axios.get(`${config.apiBaseUrl}/api/pokemons`) 
     .then(response => {
       setPokemonList(response.data);
       console.log('Fetched Pokémon List:', response.data);

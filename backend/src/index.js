@@ -6,6 +6,7 @@ import { singleLowestStat } from './singleLowestStat.js';
 import { lowestPokemonFromStat } from './lowestPokemonFromStat.js';
 import { betterPokemonTypeStat } from './betterPokemonTypeStat.js'; 
 import { canEvolve } from './canEvolve.js'; 
+import { teamEvolve } from './teamEvolve.js'; 
 import { typeWeaknesses } from './typeWeaknesses.js';
 
 const app = express();
@@ -30,10 +31,31 @@ loadData().catch(error => {
 
 app.get('/api/pokemons', (req, res) => {
   res.json(data.pokemons);
+  // const bulba = canEvolve(data.pokemons[0], data.pokemons);
+  const bulba2 = teamEvolve([data.pokemons[0]], data.pokemons)
+  // console.log(bulba);
+  console.log(bulba2);
+
 });
 
 app.get('/api/types', (req, res) => {
   res.json(data.types);
+});
+
+app.get('/api/stats', (req, res) => {
+  res.json(data.stats);
+});
+
+app.get('/api/effectiveness', (req, res) => {
+  res.json(data.typeEffectives);
+});
+
+app.get('/api/moves', (req, res) => {
+  res.json(data.moves);
+});
+
+app.get('/api/pokemon-moves', (req, res) => {
+  res.json(data.pokemonMoves);
 });
 
 
@@ -64,6 +86,12 @@ app.post('/api/better-pokemon-type-stat', (req, res) => {
 app.post('/api/can-evolve', (req, res) => { 
   const { pokemon } = req.body; 
   const result = canEvolve(pokemon, data.pokemons); 
+  res.json(result); 
+});
+
+app.post('/api/team-evolve', (req, res) => { 
+  const { team } = req.body; 
+  const result = teamEvolve(team, data.pokemons); 
   res.json(result); 
 });
 
