@@ -20,6 +20,7 @@ const Suggestions = () => {
   const [isAbilityPopupVisible, setIsAbilityPopupVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [statWeaknesses, setStatWeaknesses] = useState([]);
+  const [effectiveMoves, setEffectiveMoves] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const Suggestions = () => {
       console.log(validPokemons); 
       setEvolvablePokemon(response.data);
       console.log(response.data);
-  }) 
+     }) 
     .catch(error => console.error('Error fetching evolvable Pokemon:', error)); 
 
     axios.post(`${config.apiBaseUrl}/api/three-lowest-stats`, { selectedPokemon: validPokemons }) 
@@ -78,6 +79,12 @@ const Suggestions = () => {
         console.log(response.data);
     }) 
       .catch(error => console.error('Error fetching stat weaknesses:', error)); 
+    
+    axios.post(`${config.apiBaseUrl}/api/effective-moves`, { typeWeaknesses: typeWeaknesses, selectedPokemon: validPokemons })
+      .then(response => {
+        setEffectiveMoves(response.data)
+      })
+
   }, []);
 
   const handlePokemonClick = (pokemon) => {
@@ -104,6 +111,13 @@ const Suggestions = () => {
   const formatStatName = (statName) => {
     return statName
       .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };  
+ 
+  const formatMoveName = (statName) => {
+    return statName
+      .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };  
@@ -340,9 +354,14 @@ const Suggestions = () => {
       
       <div className= {styles.movesContainer}>
         <h1 className={styles.movesTitle}>Move Suggestions</h1>
-        
         <div className= {styles.movesBox}>
-
+            {effectiveMoves.map((move, index) => (
+              <div key={index} className={styles.moveRow}> 
+                <div className={styles.moveName}>{formatMoveName(move.name)}</div>
+                <div className={styles.moveType} style={{backgroundColor: `VAR(--${move.type})` }}>{capitalizeFirstLetter(move.type)}</div>
+                <div className={styles.moveCategory}>{capitalizeFirstLetter(move.category)}</div>
+              </div>
+            ))}
         </div>
       </div>
       

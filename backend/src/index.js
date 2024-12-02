@@ -8,6 +8,7 @@ import { betterPokemonTypeStat } from './betterPokemonTypeStat.js';
 import { canEvolve } from './canEvolve.js'; 
 import { teamEvolve } from './teamEvolve.js'; 
 import { typeWeaknesses } from './typeWeaknesses.js';
+import { getEffectiveMoves } from './getEffectiveMoves.js';
 
 const app = express();
 const port = 3000;
@@ -100,6 +101,12 @@ app.post('/api/type-weaknesses', (req, res) => {
   const result = typeWeaknesses(team, data.typeEffectives, data.types); 
   res.json(result); 
 });
+
+app.post('/api/effective-moves', (req, res) => {
+  const { typeWeaknesses, selectedPokemon } = req.body;
+  const effectiveMoves = getEffectiveMoves(typeWeaknesses, selectedPokemon, data.pokemonMoves, data.moves, data.typeEffectives, data.types);
+  res.json(effectiveMoves);
+})
 
 app.listen(port, () => {
   console.log(`Server running at http:/localhost:${port}`);
