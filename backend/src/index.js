@@ -11,6 +11,7 @@ import { typeWeaknesses } from './typeWeaknesses.js';
 import { getEffectiveMoves } from './getEffectiveMoves.js';
 import { getBestSuggestions } from './getBestSuggestions.js';
 import { canLearn } from './canLearn.js';
+import { pokeMaxHeap } from './datastructures/pokeMaxHeap.js';
  
 const app = express();
 const port = 3000;
@@ -120,6 +121,11 @@ app.post('/api/can-learn', (req, res) => {
   const { pokemon } = req.body;
   const moveLearn = canLearn(pokemon, data.pokemonMoves, data.moves);
   res.json(moveLearn);
+})
+
+app.post('/api/poke-max-heap', (req, res) => {
+  const result = pokeMaxHeap(data);
+  res.json(result);
 })
 
 app.listen(port, () => {
