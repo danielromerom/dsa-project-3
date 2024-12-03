@@ -166,7 +166,7 @@ const Suggestions = () => {
   
 
   const generationMap = {
-    'i': 'Kalos',
+    'i': 'Kanto',
     'ii': 'Johto',
     'iii': 'Hoenn',
     'iv': 'Sinnoh',

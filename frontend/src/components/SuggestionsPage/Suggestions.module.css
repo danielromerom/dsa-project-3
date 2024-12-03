@@ -847,6 +847,7 @@
   height: 75%;
   border-radius: 3vh;
   overflow-y: auto;
+  padding-top: 2vh;
 }
 
 .popupMoveRow {
@@ -854,7 +855,6 @@
   flex-direction: column;
   width: 90%;
   margin: 1vh 0;
-  padding: 1vh;
 }
 
 .topRow {
