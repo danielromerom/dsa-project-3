@@ -9,7 +9,9 @@ import { canEvolve } from './canEvolve.js';
 import { teamEvolve } from './teamEvolve.js'; 
 import { typeWeaknesses } from './typeWeaknesses.js';
 import { getEffectiveMoves } from './getEffectiveMoves.js';
-
+import { getBestSuggestions } from './getBestSuggestions.js';
+import { canLearn } from './canLearn.js';
+ 
 const app = express();
 const port = 3000;
 
@@ -32,10 +34,10 @@ loadData().catch(error => {
 
 app.get('/api/pokemons', (req, res) => {
   res.json(data.pokemons);
-  // const bulba = canEvolve(data.pokemons[0], data.pokemons);
-  // const bulba2 = teamEvolve([data.pokemons[0]], data.pokemons)
-  // console.log(bulba);
-  // console.log(bulba2);
+  // const bulb = canEvolve(data.pokemons[0], data.pokemons);
+  // const bulb2 = teamEvolve([data.pokemons[0]], data.pokemons)
+  // console.log(bulb);
+  // console.log(bulb2);
 
 });
 
@@ -106,6 +108,18 @@ app.post('/api/effective-moves', (req, res) => {
   const { typeWeaknesses, selectedPokemon } = req.body;
   const effectiveMoves = getEffectiveMoves(typeWeaknesses, selectedPokemon, data.pokemonMoves, data.moves, data.typeEffectives, data.types);
   res.json(effectiveMoves);
+})
+
+app.post('/api/best-suggestions', (req, res) => {
+  const { selectedPokemon, statWeaknesses } = req.body;
+  const bestPoke = getBestSuggestions(selectedPokemon, statWeaknesses, data.pokemons, data.stats);
+  res.json(bestPoke);
+})
+
+app.post('/api/can-learn', (req, res) => {
+  const { pokemon } = req.body;
+  const moveLearn = canLearn(pokemon, data.pokemonMoves, data.moves);
+  res.json(moveLearn);
 })
 
 app.listen(port, () => {

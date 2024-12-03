@@ -21,7 +21,10 @@ const Suggestions = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [statWeaknesses, setStatWeaknesses] = useState([]);
   const [effectiveMoves, setEffectiveMoves] = useState([]);
+  const [bestSuggestions, setBestSuggestions] = useState([]);
+  const [popupMoves, setPopupMoves] = useState([]);
   const navigate = useNavigate();
+  const validPokemons = selectedPokemon.filter(pokemon => pokemon !== null);
 
   useEffect(() => {
     axios.get(`${config.apiBaseUrl}/api/types`)
@@ -52,44 +55,64 @@ const Suggestions = () => {
       .then(response => {
         setStats(response.data);
       })
-        .catch(error => console.error('Error fetching types:', error));
+      .catch(error => console.error('Error fetching types:', error));
 
-  }, []);
-
-  useEffect(() => {
-    axios.post(`${config.apiBaseUrl}/api/type-weaknesses`, { team: selectedPokemon })
+      axios.post(`${config.apiBaseUrl}/api/type-weaknesses`, { team: selectedPokemon })
       .then(response => {
         setTypeWeaknesses(response.data);
       })
       .catch(error => console.error('Error fetching type weaknesses:', error));
-
-    const validPokemons = selectedPokemon.filter(pokemon => pokemon !== null);
-    
-    axios.post(`${config.apiBaseUrl}/api/team-evolve`, { team: validPokemons }) 
-    .then(response => {
-      console.log(validPokemons); 
-      setEvolvablePokemon(response.data);
-      console.log(response.data);
-     }) 
-    .catch(error => console.error('Error fetching evolvable Pokemon:', error)); 
-
-    axios.post(`${config.apiBaseUrl}/api/three-lowest-stats`, { selectedPokemon: validPokemons }) 
+      
+      axios.post(`${config.apiBaseUrl}/api/three-lowest-stats`, { selectedPokemon: validPokemons }) 
       .then(response => { 
         setStatWeaknesses(response.data);
-        console.log(response.data);
-    }) 
+        // console.log(response.data);
+      }) 
       .catch(error => console.error('Error fetching stat weaknesses:', error)); 
-    
-    axios.post(`${config.apiBaseUrl}/api/effective-moves`, { typeWeaknesses: typeWeaknesses, selectedPokemon: validPokemons })
-      .then(response => {
-        setEffectiveMoves(response.data)
-      })
-
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      axios.post(`${config.apiBaseUrl}/api/team-evolve`, { team: validPokemons }) 
+      .then(response => {
+        // console.log(validPokemons); 
+        setEvolvablePokemon(response.data);
+        // console.log(response.data);
+      }) 
+      .catch(error => console.error('Error fetching evolvable Pokemon:', error)); 
+    }
+    fetchData();
+  }, [selectedPokemon]);
+
+  useEffect(() => {
+    axios.post(`${config.apiBaseUrl}/api/effective-moves`, { typeWeaknesses: typeWeaknesses, selectedPokemon: validPokemons })
+        .then(response => {
+          setEffectiveMoves(response.data)
+      })
+  }, [typeWeaknesses])
+
+  useEffect(() => {
+    axios.post(`${config.apiBaseUrl}/api/best-suggestions`, { selectedPokemon: validPokemons, statWeaknesses: statWeaknesses })
+        .then(response => {
+          setBestSuggestions(response.data)
+      })
+  }, [statWeaknesses])
+
+  useEffect(() => {
+    axios.post(`${config.apiBaseUrl}/api/can-learn`, { pokemon: popupPokemon })
+        .then(response => {
+          console.log("use effect running")
+          console.log(popupPokemon)
+          setPopupMoves(response.data)
+          console.log(popupMoves);
+      })
+  }, [popupPokemon, isPopupVisible])
 
   const handlePokemonClick = (pokemon) => {
     if (pokemon) {
       setPopupPokemon(pokemon);
+      console.log("popupOpen")
       setIsShiny(false);
       setIsPopupVisible(true);
     }
@@ -277,9 +300,23 @@ const Suggestions = () => {
 
             <div className= {styles.learnContainer}>
               <h1 className={styles.learnTitle}>Can Learn:</h1>
-        
               <div className= {styles.learnBox}>
-
+                {popupMoves.map((move, index) => (
+                  <div key={index} className={styles.popupMoveRow}>
+                    <div className={styles.topRow}>
+                      <div className={styles.popupMoveName}>{formatMoveName(move?.move_name)}</div>
+                      <div className={styles.popupMoveCategory}>{capitalizeFirstLetter(move?.category)}</div>
+                    </div>
+                    <div className={styles.bottomRow}>
+                      <div className={styles.popupMoveType} style={{backgroundColor: `VAR(--${move?.type}`}}>
+                        {capitalizeFirstLetter(move?.type)}
+                      </div>
+                      <div className={styles.popupMovePower}>Power: {move?.power}</div>
+                      <div className={styles.popupMoveAccuracy}>Accuracy: {move?.accuracy}</div>
+                      <div className={styles.popupMovePP}>PP: {move?.pp}</div>
+                    </div> 
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -368,8 +405,35 @@ const Suggestions = () => {
       <div className= {styles.pokeSuggContainer}>
       <h1 className={styles.pokeSuggTitle}>Pokemon Suggestions</h1>
       <div className= {styles.pokeSuggBox}>
-
+      {bestSuggestions.map(({ pokemon, stat}, index) => (
+        <div key={index} className={styles.pokeSuggRow}>
+          <div className={styles.pokemonInfo}>
+            <div className={styles.pokemonImageContainer}> 
+              <div className={styles.pokeSuggCircle}>
+                <img 
+                  src={pokemon.front_sprite} 
+                  alt={pokemon.name} 
+                  className={styles.pokemonImage} 
+                /> 
+              </div>
+              <div className={styles.pokemonName}>{capitalizeFirstLetter(pokemon.name)}</div> 
+            </div> 
+          </div> 
+          <div className={styles.statInfo}>
+            Better {formatStatName(stat)} 
+          </div> 
+          <div className={styles.typeInfo}> 
+            <div className={styles.suggTypeBox1} style={{ backgroundColor: `VAR(--${getTypeName(pokemon?.type1_id)})` }}> 
+              {capitalizeFirstLetter(types[pokemon.type1_id - 1].type_name)} 
+            </div> {pokemon.type2_id !== '0' && ( 
+              <div className={styles.suggTypeBox2} style={{ backgroundColor: `VAR(--${getTypeName(pokemon?.type2_id)})` }}> 
+                {capitalizeFirstLetter(types[pokemon.type2_id - 1].type_name)} 
+              </div> 
+            )}
+          </div>
         </div>
+      ))}
+      </div>
       </div>
 
       <div className={styles.menuButtonContainer}> 

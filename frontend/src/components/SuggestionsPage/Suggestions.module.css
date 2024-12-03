@@ -253,6 +253,7 @@
   font-weight: 400; 
   font-style: normal; 
   background-color: var(--dark-gray);
+  color: black;
 }
 
 .pokeSuggContainer {
@@ -285,16 +286,140 @@
 .pokeSuggBox {
   display: flex;
   justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   top:5.5vh;
+  flex-direction: column;
   background-color: VAR(--light-gray);
+  overflow-y: auto;
   color: white;
   text-align: center;
   width: 100%;
   height: 75%;
   border-radius: 3vh;
   padding: 1vh 0;
+}
+
+.pokeSuggRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 1vh;
+  margin-bottom: -4vh;
+}
+
+.pokeSuggCircle {
+  width: 12vh;
+  height: 12vh;
+  border-radius: 50%;
+  overflow: visible;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.pokeSuggRow:nth-child(odd) .pokeSuggCircle {
+  background-color: VAR(--light-red);
+  border: 0.75vh solid var(--dark-red); 
+
+}
+.pokeSuggRow:nth-child(even) .pokeSuggCircle {
+  background-color: VAR(--light-purple);
+  border: 0.75vh solid var(--dark-purple); 
+}
+
+.pokemonInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemonImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemonImage {
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pokemonName {
+  position: relative;
+  top: -5vh;
+  text-align: center;
+  padding: 1vh 1vw;
+  border-radius: 1vh;
+  font-size: 2.5vh; 
+  font-family: "Irish Grover", system-ui; 
+  font-weight: 400; 
+  font-style: normal; 
+  background-color: var(--darkest-gray);
+}
+
+.statInfo {
+  flex: 2;
+  text-align: center;
+  padding: 1vh 2vh;
+  border-radius: 1vh;
+  margin-top: -5vh;
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var(--dark-gray);
+  color: black;
+}
+
+.typeInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+}
+
+.suggTypeBox1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 4.5vh;
+  text-align: center;
+  margin-top: -5vh;
+
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+  border-radius: 1vh;
+}
+
+.suggTypeBox2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 4.5vh;
+  text-align: center;
+
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+  border-radius: 1vh;
 }
 
 .pokemonRows {
@@ -381,7 +506,7 @@
   width: 80vw;
   height: 80vh;
   overflow-y: auto;
-  border-radius: 0.5%;
+  border-radius: 2vh;
   cursor:default;
 
   z-index: 1001;
@@ -710,8 +835,9 @@
 
 .learnBox {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
   position: absolute;
   top:16vh;
   background-color: VAR(--light-gray);
@@ -720,7 +846,87 @@
   width: 100%;
   height: 75%;
   border-radius: 3vh;
+  overflow-y: auto;
 }
+
+.popupMoveRow {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 1vh 0;
+  padding: 1vh;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1vh;
+  column-gap: 3vh;
+}
+
+.popupMoveName {
+  flex: 3;
+  text-align: center;
+  padding: 1vh;
+  padding-left: 2.75vw;
+  padding-right: 2.75vw;
+  border-radius: 1vh;
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  color: white;
+}
+
+.popupMoveRow:nth-child(odd) .popupMoveName {
+  background-color: var(--light-red);
+}
+
+.popupMoveRow:nth-child(even) .popupMoveName {
+  background-color: var(--light-purple);
+}
+
+.popupMoveCategory {
+  flex: 1;
+  text-align: center;
+  padding: 1vh;
+  border-radius: 1vh;
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  color: black;
+  background-color: var(--dark-gray);
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1vh;
+  column-gap: 3vh;
+}
+
+.popupMoveType {
+  flex: 1;
+  text-align: center;
+  padding: 1vh;
+  border-radius: 1vh;
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  color: black;
+  border-radius: 5px;
+}
+
+.popupMovePower,
+.popupMoveAccuracy,
+.popupMovePP {
+  flex: 1;
+  text-align: center;
+  padding: 1vh;
+  border-radius: 1vh;
+  font-size: 2.5vh;
+  font-family: "Irish Grover", system-ui;
+  color: black;
+  background-color: var(--dark-gray);
+}
+
 
 .idBox {
   position: absolute;
