@@ -9,11 +9,16 @@ export function singleLowestStat(pokemons, stats) {
     speed: 0
   };
 
-  // sum stats for all pokemon in pokemons
+  console.log(pokemons);
+  
   pokemons.forEach(pokemon => {
-    const pokemonStats = stats.find(stat => stat.id === pokemon.stats_id);
-    for (let stat in combinedStats) {
-      combinedStats[stat] += parseInt(pokemonStats[stat]);
+    console.log("currently: ", pokemon);
+    if (pokemon !== null) {
+      const pokemonStats = stats.find(stat => stat.id === pokemon.stats_id);
+      console.log("stats: ", pokemonStats);
+      for (let stat in combinedStats) {
+        combinedStats[stat] += parseInt(pokemonStats[stat]);
+      }
     }
   });
 
@@ -25,6 +30,6 @@ export function singleLowestStat(pokemons, stats) {
 
   // sort by stat values in ascending order
   statsArray.sort((a, b) => a.value - b.value);
-
+  // console.log("Lowest: ", statsArray[0]);
   return statsArray[0];
 }

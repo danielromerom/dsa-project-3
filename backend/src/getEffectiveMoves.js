@@ -1,7 +1,9 @@
+import { shuffle } from "./shuffle.js";
+
 export function getEffectiveMoves(typeWeaknesses, selectedPokemon, pokemonMoves, moves, typeEffectives, types) {
   // Find types that are 2x effective against the weaknesses
   const effectiveTypes = new Set();
-  if (typeWeaknesses) {
+  if (typeWeaknesses && typeWeaknesses.length > 0) {
     typeWeaknesses.forEach(weakness => {
       typeEffectives.forEach(effectiveness => {
         if (effectiveness.defender_type === weakness && parseFloat(effectiveness.effectiveness) >= 2.0) {
@@ -10,15 +12,13 @@ export function getEffectiveMoves(typeWeaknesses, selectedPokemon, pokemonMoves,
       });
     });
   } else {
-    const getRandomInt = (max) => Math.floor(Math.random() * max) + 1; 
-    const allTypes = types.map(type => type.type_name.toLowerCase()); 
     while (effectiveTypes.size < 3) { 
-      const randomIndex = getRandomInt(allTypes.length) - 1; 
-      effectiveTypes.add(allTypes[randomIndex]); 
+      const randomIndex = Math.floor(Math.random() * 18) + 1;
+      effectiveTypes.add(types.find(t => parseInt(t.id, 10) == randomIndex).type_name); 
     }
   }
 
-
+  //console.log(effectiveTypes);
   // Find moves that match the effective types for each Pokémon in the team
   const effectiveMoves = [];
   selectedPokemon.forEach(pokemon => {
@@ -36,5 +36,6 @@ export function getEffectiveMoves(typeWeaknesses, selectedPokemon, pokemonMoves,
     });
   });
 
-  return effectiveMoves;
+
+  return shuffle(effectiveMoves);
 }
