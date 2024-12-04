@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: 'http://localhost:3000',
+  apiBaseUrl: 'https://dsa-project-3-vshf.onrender.com',
 };
 
 export default config;
