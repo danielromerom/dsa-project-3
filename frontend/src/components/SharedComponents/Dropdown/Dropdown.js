@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Dropdown.module.css';
+import styles from './Dropdown.module.css';
 
 const Dropdown = ({ options, selectedOption, onChange, isLoading }) => {
   const [filter, setFilter] = useState('');
@@ -19,7 +19,7 @@ const Dropdown = ({ options, selectedOption, onChange, isLoading }) => {
   return (
     <div className='dropdownContainer'>
       { isLoading ? (
-        <p>
+        <p className={styles.loadingBox}>
           Backend is loading, please wait a minute and reload if necessary
         </p>
       ) : (

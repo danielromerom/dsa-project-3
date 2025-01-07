@@ -557,7 +557,7 @@
 }
 
 .shinyButton::before {
-  border-radius: 100%;
+  border-radius: 100;
 }
 
 .shinyButton:hover::before {
