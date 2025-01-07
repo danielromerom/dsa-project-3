@@ -1,1 +1,22 @@
-# dsa-project-3
+Project currently hosted on: https://dsa-project-3-1.onrender.com
+However, it is using free render subscription so sometimes it takes a few minutes to get the backend working
+
+Install NodeJS
+
+Go into the frontend/src/config/config.js file and set apiBaseUrl: 'http://localhost:3000';
+
+Open a terminal
+Inside of backend folder run:
+npm install
+npm start
+
+This will host the backend at http:/localhost:3000
+
+Afterward open another terminal
+Inside of the frontend folder run:
+npm install
+npm start
+
+It will say that something is already running in http:/localhost:3000, press Y
+
+Now the frontend will be running in http:/localhost:3001
