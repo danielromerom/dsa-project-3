@@ -9,15 +9,20 @@ function InputTeamPage() {
   const [pokemonList, setPokemonList] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(Array(6).fill(null));
   const [showDropdown, setShowDropdown] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`${config.apiBaseUrl}/api/pokemons`) 
     .then(response => {
       setPokemonList(response.data);
+      setIsLoading(false);
       console.log('Fetched Pokémon List:', response.data);
     })
-    .catch(error => console.error('Error fetching Pokémon data:', error));
+    .catch(error => {
+      console.error('Error fetching Pokémon data:', error)
+    });
+    
   }, []);
 
   const handlePokemonChange = (index, selectedId) => {
@@ -95,6 +100,7 @@ function InputTeamPage() {
                     options={pokemonList} 
                     selectedOption={pokemon ? pokemon.id : ''} 
                     onChange={selectedId => handlePokemonChange(index, selectedId)} 
+                    isLoading={isLoading}
                   /> 
                 </div> 
               )} 
@@ -122,6 +128,7 @@ function InputTeamPage() {
                     options={pokemonList} 
                     selectedOption={pokemon ? pokemon.id : ''} 
                     onChange={selectedId => handlePokemonChange(index + 3, selectedId)} 
+                    isLoading={isLoading}
                   /> 
                 </div> 
               )} 

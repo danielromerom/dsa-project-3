@@ -107,4 +107,24 @@ button {
   border-radius: 50px;
   background-color: var(--dark-red);
   color: white;
+  position: relative; /* Required for positioning the overlay */
+  overflow: hidden; /* Ensures the overlay doesn't go outside the button */
 }
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white layer */
+  transition: opacity 0.3s;
+  opacity: 0;
+  pointer-events: none; /* Ensures the overlay doesn't interfere with button interaction */
+}
+
+button:hover::before {
+  opacity: 1;
+}
+

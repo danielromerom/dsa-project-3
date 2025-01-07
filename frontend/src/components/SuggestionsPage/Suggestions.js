@@ -211,7 +211,7 @@ const Suggestions = () => {
               <img
                 src={pokemon ? pokemon.front_sprite : ''}
                 alt={pokemon ? pokemon.name : ''}
-                className={styles.pokemonImage}
+                className={styles.pokeImageClick}
               />
             </div>
           ))}
@@ -226,7 +226,7 @@ const Suggestions = () => {
               <img
                 src={pokemon ? pokemon.front_sprite : ''}
                 alt={pokemon ? pokemon.name : ''}
-                className={styles.pokemonImage}
+                className={styles.pokeImageClick}
               />
             </div>
           ))}

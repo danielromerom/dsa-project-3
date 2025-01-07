@@ -1,5 +1,3 @@
-
-
 import MaxHeap from './maxHeap.js';
 import { singleLowestStat } from '../singleLowestStat.js';
 import { typeWeaknesses } from '../typeWeaknesses.js';
