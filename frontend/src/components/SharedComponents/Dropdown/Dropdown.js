@@ -20,7 +20,7 @@ const Dropdown = ({ options, selectedOption, onChange, isLoading }) => {
     <div className='dropdownContainer'>
       { isLoading ? (
         <p className={styles.loadingBox}>
-          Backend is loading, please wait a minute and go return to https://dsa-project-3-1.onrender.com/
+          Backend is loading, please wait a minute and return to https://dsa-project-3-1.onrender.com/
         </p>
       ) : (
         <>
